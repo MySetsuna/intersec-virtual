@@ -11,8 +11,13 @@ const IntersectionObserverBox = React.forwardRef((props, pref) => {
   const changeHiddenStatus = React.useCallback(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) setChildrenHidden(false);
-        if (!entry.isIntersecting) setChildrenHidden(true);
+        if (entry.isIntersecting) {
+          setChildrenHidden(false);
+          ref.current.ishidden = false;
+        } else {
+          setChildrenHidden(true);
+          ref.current.ishidden = true;
+        }
       });
     },
     [ref.current]

@@ -3,6 +3,7 @@ import styles from "./virtualTable.module.less";
 import PropTypes from "prop-types";
 import IntersectionObserverBox from "../../lib/IntersectionObserverBox/IntersectionObserverBox";
 import VirtualRow from "../VirtualRow";
+import VirtualBlankMerger from "../VirtualBlankMerger";
 
 const VirtualTable = (props) => {
   const { rows, columns } = props;
@@ -30,15 +31,17 @@ const VirtualTable = (props) => {
         ))}
       </div>
       <div ref={tableBodyRef}>
-        {rows.map((row, index) => (
-          <VirtualRow
-            key={index}
-            row={row}
-            columns={columns}
-            totalWidth={totalWidth}
-            parentDom={tableBodyRef.current}
-          />
-        ))}
+        <VirtualBlankMerger>
+          {rows.map((row, index) => (
+            <VirtualRow
+              key={index}
+              row={row}
+              columns={columns}
+              totalWidth={totalWidth}
+              parentDom={tableBodyRef.current}
+            />
+          ))}
+        </VirtualBlankMerger>
       </div>
     </div>
   );
